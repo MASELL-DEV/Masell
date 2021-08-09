@@ -1,13 +1,15 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { Nav, Navbar, Row, Tab, Col } from 'react-bootstrap';
 import exportConnect from '../../../redux/connect';
+import DataTable from 'react-data-table-component';
 class Dashboard extends Component {
+    
     render(){
-        console.log(this.props)
+        
         return (
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Fragment>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     {/* <Container> */}
                         <div className="container">
                             <Navbar.Brand href="#home">Masell</Navbar.Brand>
@@ -34,8 +36,63 @@ class Dashboard extends Component {
                             </Navbar.Collapse>
                         </div>
                     {/* </Container> */}
-            </Navbar>
+                </Navbar>
+                <Tab.Container className="bg-light" id="left-tabs-example" defaultActiveKey="first">
+                        <Row className="m-2">
+                            <Col sm={2} className="bg-light card my-2 p-2">
+                                <Nav variant="pills" className="flex-column">
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="all">Semua products</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="bystore">Berdasarkan toko</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="draft">Draft</Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                            </Col>
+                            <Col sm={9}>
+                                <Tab.Content>
+                                    <Tab.Pane eventKey="all">
+                                    <DataTable
+                                        title="Arnold Movies"
+                                        columns={columns}
+                                        customStyles={customStyles}
+                                    />
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="bystore">
+                                        sdlfsd
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="draft">
+                                        sdlfsd
+                                    </Tab.Pane>
+                                </Tab.Content>
+                            </Col>
+                        </Row>
+                </Tab.Container>
+            </Fragment>
         )
     }
 }
+
+const customStyles = {
+    rows: {
+      style: {
+        minHeight: '72px', // override the row height
+      }
+    },
+    headCells: {
+      style: {
+        paddingLeft: '8px', // override the cell padding for head cells
+        paddingRight: '8px',
+      },
+    },
+    cells: {
+      style: {
+        paddingLeft: '8px', // override the cell padding for data cells
+        paddingRight: '8px',
+      },
+    },
+  };
 export default exportConnect(Dashboard);
